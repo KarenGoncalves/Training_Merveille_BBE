@@ -8,7 +8,7 @@ database=$DOSSIER/Amaryllidoideae
 ##### Run the code #####
 ########################
 
-module load StdEnv/2023 blast+
+module load StdEnv/2023 blast+/2.14.1
 
 cd $DOSSIER
 
