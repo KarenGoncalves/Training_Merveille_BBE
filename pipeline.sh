@@ -6,12 +6,12 @@
 #
 #sh get_BBE.sh; 
 
-grep -v "#" blastp_result_270525.out | cut -f 2 | sort | uniq\
- > Amaryllidoideae_BBE_id.txt
-
-grep -f Amaryllidoideae_BBE_id.txt\
- Amaryllidoideae_proteome.fasta --no-group-separator\
- -A1 > Amaryllidoideae_BBE.fasta
+#grep -v "#" blastp_result_270525.out | cut -f 2 | sort | uniq\
+# > Amaryllidoideae_BBE_id.txt
+#
+#grep -f Amaryllidoideae_BBE_id.txt\
+# Amaryllidoideae_proteome.fasta --no-group-separator\
+# -A1 > Amaryllidoideae_BBE.fasta
 
 awk 'BEGIN {FS="\n"; OFS="\t"; RS=">"; ORS="\n"}\
  {if ($1 ~ /internal/) {type="internal"}\
