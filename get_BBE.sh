@@ -16,10 +16,10 @@ cd $DOSSIER
 ##### If you have a protein sequence, use blastp #####
 ######################################################
 
+
 srun --account=def-desgagne --time=0:05:00 --mem=1G\
  blastp -query ${mySequence}\
  -db ${database}\
- -max_target_seqs 10\
- -outfmt '7'\
+ -evalue 0.0005\
+ -outfmt '6'\
  > $DOSSIER/blastp_result_270525.out
- 
