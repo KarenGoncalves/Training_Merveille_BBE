@@ -4,7 +4,7 @@
 # module load StdEnv/2023 blast+
 #srun --account=def-desgagne --time=0:10:00 --mem=15G makeblastdb -in Amaryllidoideae_proteome.fasta  -dbtype prot -out Amaryllidoideae
 #
-#sh scripts/get_BBE.sh; 
+sh scripts/get_BBE.sh; 
 
 grep -v "#" blastp_result_280525.out | cut -f 2 | sort | uniq\
  > Amaryllidoideae_BBE_id.txt

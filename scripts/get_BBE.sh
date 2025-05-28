@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOSSIER=$SCRATCH/Merveille/findCandidates/
+DOSSIER=$SCRATCH/Merveille/Training_Merveille_BBE/
 mySequence=$DOSSIER/baits_BBE.fasta
 database=$DOSSIER/Amaryllidoideae
 
@@ -22,4 +22,4 @@ srun --account=def-desgagne --time=0:05:00 --mem=1G\
  -db ${database}\
  -evalue 0.0005\
  -outfmt '6'\
- > $DOSSIER/blastp_result_270525.out
+ > $DOSSIER/blastp_result_280525.out
