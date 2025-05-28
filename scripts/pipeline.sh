@@ -29,3 +29,5 @@ grep -f Amaryllidoideae_BBE450_id.txt blastp_result_270525.out\
  | awk '$3 > 35 && $4 > 400 { print $2}' |\
  sort | uniq |\
  sed -E 's/^(.+)(_i[0-9]+|_seq[0-9]+)*(\.p[0-9]+)/\1\t\1\2\3/' > Gene_to_protein.txt
+
+sed 's/*//' Amaryllidoideae_BBE.fasta > Amaryllidoideae_BBE_noStop.fasta
