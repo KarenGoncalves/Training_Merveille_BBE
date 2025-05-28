@@ -28,7 +28,7 @@ baits =
   readAAStringSet(format = "fasta")
 
 blastp_result = 
-  read_delim("blastp_result_270525.out",
+  read_delim("blastp_result_280525.out",
              col_names = c("Bait", "Hit", "Pct_identity", "Aln_length",
                            "Mismatches", "gap", "Bait_start", "Bait_end",
                            "Hit_start", "Hit_end", "evalue", "bitscore"))
@@ -66,8 +66,8 @@ Amaryllidaceae_candidates_cleanNames =
 names(Amaryllidaceae_candidates) = Amaryllidaceae_candidates_cleanNames
 
 clean_baits = names(baits) %>% 
-  gsub("^sp\\|[0-9A-Z\\.]+\\|", "", x = .) %>% 
-  gsub(" ", "", x = .)
+  gsub("^sp\\|[0-9A-Z\\.]+\\|", "", x = .) %>%
+  gsub(" .+", "", x = .)
 
 names(baits) = clean_baits
 
