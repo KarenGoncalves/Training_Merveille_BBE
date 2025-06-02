@@ -11,6 +11,7 @@ install_from_dif_sources(
 minimum_length = 450
 min_alnLength = 400
 min_pct_id = 35
+blast_file = "blastp_result_020625.out"
 
 ##### Open files #####
 protein_info = read_delim("Protein_lengths_amaryllidoideae.txt", skip=1, 
@@ -28,7 +29,7 @@ baits =
   readAAStringSet(format = "fasta")
 
 blastp_result = 
-  read_delim("blastp_result_280525.out",
+  read_delim(blast_file,
              col_names = c("Bait", "Hit", "Pct_identity", "Aln_length",
                            "Mismatches", "gap", "Bait_start", "Bait_end",
                            "Hit_start", "Hit_end", "evalue", "bitscore"))
