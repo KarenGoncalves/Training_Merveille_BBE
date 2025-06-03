@@ -27,7 +27,7 @@ Amaryllidaceae_hits =
 names(Amaryllidaceae_hits) = gsub(" .+", "", names(Amaryllidaceae_hits))
 
 baits =  
-  "baits_BBE.fasta" %>%
+  "baits_for_tree.fasta" %>%
   readAAStringSet(format = "fasta")
 
 blastp_result = 
@@ -54,7 +54,9 @@ grouped_blastp_result =
   arrange(desc(bitscore), ProtID) %>% 
   slice_head(n = 1)
 
-selected_prots = grouped_blastp_result$ProtID %>% unique
+selected_prots = (grouped_blastp_result %>% 
+  group_by(GeneID) %>% 
+  slice_head(n=1))$ProtID
 
 
 ###### Filter fasta
@@ -66,15 +68,15 @@ Amaryllidaceae_candidates_cleanNames =
   names(Amaryllidaceae_candidates) %>% 
   gsub("_TRINITY", "", x = .) %>% 
   gsub("-[A-Za-z\\.].+(\\.p[0-9]+)", "\\1", x = .) %>% 
-  gsub("(_i[0-9]+|_seq[0-9]+)*\\.p[0-9]+", "", x =.)
+  gsub("(_i[0-9]+|_seq[0-9]+)*\\.p[0-9]+", "\\1", x =.)
 
 names(Amaryllidaceae_candidates) = Amaryllidaceae_candidates_cleanNames
+# 
+# clean_baits = names(baits) %>% 
+#   gsub("^sp\\|[0-9A-Z\\.]+\\|", "", x = .) %>%
+#   gsub(" .+", "", x = .)
 
-clean_baits = names(baits) %>% 
-  gsub("^sp\\|[0-9A-Z\\.]+\\|", "", x = .) %>%
-  gsub(" .+", "", x = .)
-
-names(baits) = clean_baits
+# names(baits) = clean_baits
 
 final_names <- 
   c(Amaryllidaceae_candidates_cleanNames, names(baits)) %>% 
@@ -98,8 +100,14 @@ final_names <-
   gsub("(.+)_ESCCA", "Eschscholzia californica \\1", x = .) %>% 
   gsub("(.+)_ARATH( )*", "Arabidopsis thaliana \\1", x = .) %>% 
   gsub("(.+)_CANSA", "Cannabis sativa \\1", x = .) %>% 
-  gsub("(TaBBE64)", "Triticum aestivum \\1", x = .)
+  gsub("(TaBBE\\d+)", "Triticum aestivum \\1", x = .) %>% 
+  gsub("(.+)_CYNDA", "Cynodon dactylon \\1", x = .) %>% 
+  gsub("(.+)_PAPSO", "Papaver somniferum \\1", x = .) %>% 
+  gsub("(.+)_TOBAC", "Nicotiana tabacum \\1", x = .) 
   
-c(Amaryllidaceae_candidates, baits) %>%
+seqs = c(Amaryllidaceae_candidates, baits) 
+names(seqs) = final_names
+sort(final_names) %>% duplicated
+seqs %>% 
   writeXStringSet(filepath = "Sequences_for_tree.fasta", 
                   width=100000)
